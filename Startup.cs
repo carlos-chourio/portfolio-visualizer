@@ -26,7 +26,7 @@ namespace PortfolioVisualizer
             services.AddDbContext<Data.PortfolioDbContext>(t=>
             {
                 t.UseSqlServer(Configuration.GetConnectionString("Default"));
-            });
+            }, ServiceLifetime.Scoped);
             services.AddEntityFrameworkSqlServer();
         }
 

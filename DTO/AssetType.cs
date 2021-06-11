@@ -5,8 +5,9 @@ namespace PortfolioVisualizer.DTO
 {
     public class AssetType
     {
-        [Required(ErrorMessageResourceType = typeof(Properties.Resource), ErrorMessageResourceName = nameof(Id))]
         public Guid Id { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Properties.Resource), ErrorMessageResourceName = nameof(Properties.Resource.Name))]
         public string Name { get; set; }
     }
 }

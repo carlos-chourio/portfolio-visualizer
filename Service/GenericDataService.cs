@@ -30,7 +30,7 @@ namespace PortfolioVisualizer.Service
         Task<int> SaveChangesAsync();
     }
 
-    public abstract class GenericDataService<TModel, TId, TContext> : IDataService<TModel, TId> 
+    public abstract class GenericDataService<TModel, TId, TContext> : IDataService<TModel, TId>
         where TContext : DbContext
         where TModel : class
     {
@@ -43,17 +43,32 @@ namespace PortfolioVisualizer.Service
 
         public void Add(TModel model) => context.Set<TModel>().Add(model);
         public void Delete(TModel model) => context.Set<TModel>().Remove(model);
-        public TModel Find(TId id) => context.Set<TModel>().Find(id);
-        public ValueTask<TModel> FindAsync(TId id) => context.Set<TModel>().FindAsync(id);
-        public IQueryable<TModel> Get() => context.Set<TModel>();
+        
+        public TModel Find(TId id)
+        {
+            var entity = context.Set<TModel>().Find(id);
+            context.Entry(entity).State = EntityState.Detached;
+            return entity;
+        }
+        
+        public async ValueTask<TModel> FindAsync(TId id)
+        {
+            var entity = await context.Set<TModel>().FindAsync(id);
+            if (entity != null) {
+                context.Entry(entity).State = EntityState.Detached;
+            }
+            return entity;
+        }
+        
+        public IQueryable<TModel> Get() => context.Set<TModel>().AsNoTracking();
         public Task<List<TModel>> GetAsync() => Get().ToListAsync();
-        public IQueryable<TModel> GetBy(Expression<Func<TModel, bool>> expression) => context.Set<TModel>().Where(expression);
+        public IQueryable<TModel> GetBy(Expression<Func<TModel, bool>> expression) => context.Set<TModel>().AsNoTracking().Where(expression);
         public Task<List<TModel>> GetByAsync(Expression<Func<TModel, bool>> expression) => GetBy(expression).ToListAsync();
-        public PagedResult<TModel> GetPages(int pageNumber, int pageSize) => context.Set<TModel>().ToPage(pageNumber, pageSize);
-        public async Task<PagedResult<TModel>> GetPagesAsync(Expression<Func<TModel, bool>> expression, int pageNumber, int pageSize) => await context.Set<TModel>().Where(expression).ToPageAsync(pageNumber, pageSize);
-        public async Task<PagedResult<TModel>> GetPagesAsync(int pageNumber, int pageSize) => await context.Set<TModel>().ToPageAsync(pageNumber, pageSize);
+        public PagedResult<TModel> GetPages(int pageNumber, int pageSize) => context.Set<TModel>().AsNoTracking().ToPage(pageNumber, pageSize);
+        public async Task<PagedResult<TModel>> GetPagesAsync(Expression<Func<TModel, bool>> expression, int pageNumber, int pageSize) => await context.Set<TModel>().AsNoTracking().Where(expression).ToPageAsync(pageNumber, pageSize);
+        public async Task<PagedResult<TModel>> GetPagesAsync(int pageNumber, int pageSize) => await context.Set<TModel>().AsNoTracking().ToPageAsync(pageNumber, pageSize);
         public int SaveChanges() => context.SaveChanges();
         public Task<int> SaveChangesAsync() => context.SaveChangesAsync();
-        public void Update(TModel model) => context.Set<TModel>().Update(model);
+        public void Update(TModel model) => context.Update(model);
     }
 }

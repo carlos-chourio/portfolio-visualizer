@@ -68,5 +68,14 @@ namespace PortfolioVisualizer.Properties {
                 return ResourceManager.GetString("Id", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
     }
 }

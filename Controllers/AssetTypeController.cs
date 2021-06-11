@@ -1,11 +1,8 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioVisualizer.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PortfolioVisualizer.Controllers
 {
@@ -28,8 +25,24 @@ namespace PortfolioVisualizer.Controllers
             return Ok(await assetTypeService.GetPagesAsync(pagination.PageNumber, pagination.PageSize));
         }
 
+        [HttpPut]
+        public async ValueTask<IActionResult> ModifyAssetType(DTO.AssetType assetType)
+        {
+            var model = mapper.Map<Model.AssetType>(assetType);
+            var existingModel = await assetTypeService.FindAsync(model.Id);
+            if (existingModel is null) {
+                return NotFound();
+            }
+            else {
+                assetTypeService.Update(model);
+                await assetTypeService.SaveChangesAsync();
+                var dto = mapper.Map<DTO.AssetType>(model);
+                return Ok(dto);
+            }
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateAssetType(DTO.AssetType assetType)
+        public async ValueTask<IActionResult> CreateAssetType(DTO.AssetType assetType)
         {
             var model = mapper.Map<Model.AssetType>(assetType);
             assetTypeService.Add(model);
@@ -48,6 +61,15 @@ namespace PortfolioVisualizer.Controllers
                 var dto = mapper.Map<DTO.AssetType>(model);
                 return Ok(dto);
             }
+        }
+
+        [HttpDelete("{id:Guid}")]
+        public async ValueTask<IActionResult> DeleteAsync(Guid id)
+        {
+            var model = await assetTypeService.FindAsync(id);
+            assetTypeService.Delete(model);
+            await assetTypeService.SaveChangesAsync();
+            return Ok();
         }
     }
 }

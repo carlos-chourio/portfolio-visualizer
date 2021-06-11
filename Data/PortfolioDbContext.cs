@@ -17,6 +17,12 @@ namespace PortfolioVisualizer.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Model.AssetType>().HasIndex(t => t.Name).IsUnique();
+            SeedInitialData(modelBuilder);
+        }
+
+        private void SeedInitialData(ModelBuilder modelBuilder)
+        {
             var cryptoCurrency = new Model.AssetType { Id = Guid.Parse("{E23C8752-A2FA-4CBF-801F-F2B7D45C0C52}"), Name = "Crypto" };
             var stock = new Model.AssetType { Id = Guid.Parse("{354F8FE2-FFB3-46DE-8EFD-3CB02C01B9D1}"), Name = "Stock" };
             var etf = new Model.AssetType { Id = Guid.Parse("{20047E17-CA21-4487-81E0-8FBBABF116DA}"), Name = "ETF" };
