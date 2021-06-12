@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PortfolioVisualizer
-{
-    public class MappingProfile : AutoMapper.Profile
-    {
-        public MappingProfile()
-        {
-            CreateMap<DTO.AssetType, Model.AssetType>().ReverseMap();
+﻿namespace PortfolioVisualizer {
+    public class MappingProfile : AutoMapper.Profile {
+        public MappingProfile() {
+            CreateMap<Model.AssetType, DTO.Out.AssetType>();
+            CreateMap<Model.Asset, DTO.Out.Asset>();
+            CreateMap<DTO.In.Asset, Model.Asset>();
+            CreateMap<Model.PagedResult<Model.Asset>, Model.PagedResult<DTO.Out.Asset>>();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PortfolioVisualizer.DTO
+namespace PortfolioVisualizer.DTO.Out
 {
     public class AssetType
     {

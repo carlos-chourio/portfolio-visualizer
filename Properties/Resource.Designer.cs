@@ -61,7 +61,16 @@ namespace PortfolioVisualizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Id.
+        ///   Looks up a localized string similar to The field {0} is required..
+        /// </summary>
+        public static string FieldIsRequired {
+            get {
+                return ResourceManager.GetString("FieldIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to id.
         /// </summary>
         public static string Id {
             get {
@@ -70,11 +79,47 @@ namespace PortfolioVisualizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to name.
         /// </summary>
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pageNumber.
+        /// </summary>
+        public static string PageNumber {
+            get {
+                return ResourceManager.GetString("PageNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pageSize.
+        /// </summary>
+        public static string PageSize {
+            get {
+                return ResourceManager.GetString("PageSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to symbol.
+        /// </summary>
+        public static string Symbol {
+            get {
+                return ResourceManager.GetString("Symbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to type.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
     }

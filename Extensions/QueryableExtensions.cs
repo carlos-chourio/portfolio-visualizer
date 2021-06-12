@@ -8,11 +8,11 @@ namespace PortfolioVisualizer.Extensions
 {
     public static class QueryableExtensions
     {
-        public static PagedResult<T> ToPage<T>(this IQueryable<T> query, int page, int pageSize) where T : class
+        public static PagedResult<T> ToPage<T>(this IQueryable<T> query, int pageNumber, int pageSize) where T : class
         {
             var result = new PagedResult<T>
             {
-                CurrentPage = page,
+                CurrentPage = pageNumber,
                 PageSize = pageSize,
                 RowCount = query.Count()
             };
@@ -20,7 +20,7 @@ namespace PortfolioVisualizer.Extensions
             var pageCount = (double)result.RowCount / pageSize;
             result.PageCount = (int)Math.Ceiling(pageCount);
 
-            var skip = (page - 1) * pageSize;
+            var skip = (pageNumber - 1) * pageSize;
             result.Results = query.Skip(skip).Take(pageSize).ToList();
 
             return result;

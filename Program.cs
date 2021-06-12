@@ -7,21 +7,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace PortfolioVisualizer
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+namespace PortfolioVisualizer {
+    public class Program {
+        public static void Main(string[] args) {
             CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureLogging(t =>
-                    {
+                .ConfigureWebHostDefaults(webBuilder => {
+                    webBuilder.ConfigureLogging(t => {
                         t.AddFile("{Date}-Portfolio.log");
                     });
                     webBuilder.UseStartup<Startup>();

@@ -1,5 +1,5 @@
-﻿using PortfolioVisualizer.Data;
-using System;
+﻿using System;
+using PortfolioVisualizer.Data;
 
 namespace PortfolioVisualizer.Service
 {
@@ -7,7 +7,7 @@ namespace PortfolioVisualizer.Service
     {
     }
 
-    public class AssetTypeService : GenericDataService<Model.AssetType, Guid, Data.PortfolioDbContext>, IAssetTypeService
+    public class AssetTypeService : GenericDataService<Model.AssetType, Guid, PortfolioDbContext>, IAssetTypeService
     {
         public AssetTypeService(PortfolioDbContext context) : base(context)
         {
